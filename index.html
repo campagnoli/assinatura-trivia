@@ -161,23 +161,23 @@
           <button 
             type="button" 
             id="btnResetDefaults" 
-            class="text-[11px] text-slate-400 hover:text-[#272C7C] font-medium transition underline underline-offset-2"
+            class="text-[11px] text-slate-400 hover:text-[#272C7C] font-medium transition underline underline-offset-2 cursor-pointer"
           >
             Limpar Campos
           </button>
         </div>
 
-        <!-- Seção: Pegar Logo Exclusivamente pelo Link -->
+        <!-- Seção: Logo Oficial / Link Customizado -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 text-[#F05A22]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
               </svg>
-              Pegar Logo pelo Link
+              Logotipo Oficial da Trivia
             </span>
-            <span id="logoStatusBadge" class="text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">
-              Aguardando
+            <span id="logoStatusBadge" class="text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+              Logo Carregado
             </span>
           </div>
 
@@ -192,16 +192,16 @@
             <button 
               type="button" 
               id="btnLoadLogoFromUrl"
-              class="px-3.5 py-2 bg-[#272C7C] hover:bg-[#1f2468] text-white text-xs font-bold rounded-lg transition shadow-xs flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+              class="px-3 py-2 bg-[#272C7C] hover:bg-[#1f2468] text-white text-xs font-bold rounded-lg transition shadow-xs flex items-center gap-1 cursor-pointer whitespace-nowrap"
             >
-              <span>Pegar Logo</span>
+              <span>Recarregar</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l4-4m0 0l4 4m-4-4v12"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
               </svg>
             </button>
           </div>
-          <p class="text-[11px] text-slate-400">
-            Busca a imagem real do link e a converte sem bloqueios de CORS para o Canvas.
+          <p class="text-[11px] text-slate-500">
+            Renderizado em vetor SVG de alta fidelidade sem depender de requisições de rede externas.
           </p>
         </div>
 
@@ -224,7 +224,7 @@
               <button 
                 type="button" 
                 data-size="compact" 
-                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C]"
+                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C] cursor-pointer"
               >
                 <span>Compacto</span>
                 <span class="text-[10px] font-normal text-slate-400">400 &times; 100 px</span>
@@ -233,7 +233,7 @@
               <button 
                 type="button" 
                 data-size="medium" 
-                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-[#272C7C] border-[#272C7C] text-white shadow-xs"
+                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-[#272C7C] border-[#272C7C] text-white shadow-xs cursor-pointer"
               >
                 <span>Médio (Ideal)</span>
                 <span class="text-[10px] font-normal text-indigo-200">500 &times; 125 px</span>
@@ -242,66 +242,66 @@
               <button 
                 type="button" 
                 data-size="large" 
-                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C]"
+                class="btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C] cursor-pointer"
               >
                 <span>Grande</span>
                 <span class="text-[10px] font-normal text-slate-400">600 &times; 150 px</span>
               </button>
             </div>
             <p id="sizeDescription" class="text-[11px] text-slate-500">
-            O melhor equilíbrio para desktop e dispositivos móveis (proporção 4:1).
-          </p>
-        </div>
+              O melhor equilíbrio para desktop e dispositivos móveis (proporção 4:1).
+            </p>
+          </div>
 
-        <!-- Painel Secreto do Aprendiz (Oculto até ser revelado) -->
-        <div id="masonicApprenticePanel" class="hidden bg-gradient-to-br from-amber-50 via-slate-50 to-indigo-50/50 p-4 rounded-xl border border-amber-300 shadow-sm space-y-3 transition-all duration-300">
-          <div class="flex items-center justify-between border-b border-amber-200/70 pb-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-950 flex items-center gap-1.5 font-serif">
-              <span>📐</span> Câmara do Aprendiz (1º Grau ∴)
-            </span>
-            <span class="text-[10px] bg-amber-200/80 text-amber-900 font-semibold px-2 py-0.5 rounded">
-              Três Grandes Colunas
-            </span>
-          </div>
-          <p class="text-xs text-amber-900/90 leading-relaxed font-serif">
-            <em>"Quem vem lá? Um Aprendiz que bateu à porta do Templo em busca da Luz, guiado pela Sabedoria, Força e Beleza."</em>
-          </p>
-          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-semibold text-slate-700">
-            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
-              <span class="block text-sm mb-0.5">🏛️</span>
-              <span class="text-amber-950 font-bold block">Coluna B</span>
-              <span class="text-slate-500 text-[9px]">Força</span>
+          <!-- Painel Secreto do Aprendiz (Oculto até ser revelado) -->
+          <div id="masonicApprenticePanel" class="hidden bg-gradient-to-br from-amber-50 via-slate-50 to-indigo-50/50 p-4 rounded-xl border border-amber-300 shadow-sm space-y-3 transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-amber-200/70 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-950 flex items-center gap-1.5 font-serif">
+                <span>📐</span> Câmara do Aprendiz (1º Grau ∴)
+              </span>
+              <span class="text-[10px] bg-amber-200/80 text-amber-900 font-semibold px-2 py-0.5 rounded">
+                Três Grandes Colunas
+              </span>
             </div>
-            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
-              <span class="block text-sm mb-0.5">🔨</span>
-              <span class="text-amber-950 font-bold block">Maço &amp; Cinzel</span>
-              <span class="text-slate-500 text-[9px]">Pedra Bruta</span>
+            <p class="text-xs text-amber-900/90 leading-relaxed font-serif">
+              <em>"Quem vem lá? Um Aprendiz que bateu à porta do Templo em busca da Luz, guiado pela Sabedoria, Força e Beleza."</em>
+            </p>
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-semibold text-slate-700">
+              <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+                <span class="block text-sm mb-0.5">🏛️</span>
+                <span class="text-amber-950 font-bold block">Coluna B</span>
+                <span class="text-slate-500 text-[9px]">Força</span>
+              </div>
+              <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+                <span class="block text-sm mb-0.5">🔨</span>
+                <span class="text-amber-950 font-bold block">Maço &amp; Cinzel</span>
+                <span class="text-slate-500 text-[9px]">Pedra Bruta</span>
+              </div>
+              <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+                <span class="block text-sm mb-0.5">📜</span>
+                <span class="text-amber-950 font-bold block">Três Pontos</span>
+                <span class="text-slate-500 text-[9px]">Sigilo e Honra</span>
+              </div>
             </div>
-            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
-              <span class="block text-sm mb-0.5">📜</span>
-              <span class="text-amber-950 font-bold block">Três Pontos</span>
-              <span class="text-slate-500 text-[9px]">Sigilo e Honra</span>
+            <div class="flex justify-between items-center pt-1 text-[11px]">
+              <button 
+                type="button" 
+                id="btnInsertThreeDots" 
+                class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold rounded border border-amber-300 transition cursor-pointer"
+              >
+                Inserir ∴ no Nome
+              </button>
+              <button 
+                type="button" 
+                id="btnToggleMosaicFloor" 
+                class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded transition cursor-pointer"
+              >
+                Pavimento Mosaico
+              </button>
             </div>
           </div>
-          <div class="flex justify-between items-center pt-1 text-[11px]">
-            <button 
-              type="button" 
-              id="btnInsertThreeDots" 
-              class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold rounded border border-amber-300 transition cursor-pointer"
-            >
-              Inserir ∴ no Nome
-            </button>
-            <button 
-              type="button" 
-              id="btnToggleMosaicFloor" 
-              class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded transition cursor-pointer"
-            >
-              Pavimento Mosaico
-            </button>
-          </div>
-        </div>
 
-        <!-- Controle de Tamanho e Escala da Fonte -->
+          <!-- Controle de Tamanho e Escala da Fonte -->
           <div class="bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-100 space-y-2">
             <div class="flex items-center justify-between">
               <label for="fontScaleSlider" class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
@@ -317,7 +317,7 @@
                 <button 
                   type="button" 
                   id="btnResetFontScale" 
-                  class="text-[10px] text-[#272C7C] hover:text-[#F05A22] font-semibold underline transition"
+                  class="text-[10px] text-[#272C7C] hover:text-[#F05A22] font-semibold underline transition cursor-pointer"
                   title="Volta ao tamanho ideal calibrado"
                 >
                   Ideal
@@ -388,16 +388,16 @@
 
             <!-- Badges de Preenchimento Rápido -->
             <div class="flex flex-wrap gap-1.5 mt-2">
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Controlador de CCO – Linhas 11/12/13">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition cursor-pointer" data-role="Controlador de CCO – Linhas 11/12/13">
                 Controlador CCO
               </button>
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Supervisor do CCO – Linhas 11/12/13">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition cursor-pointer" data-role="Supervisor do CCO – Linhas 11/12/13">
                 Supervisor CCO
               </button>
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Operador de Trem – Linhas 11/12/13">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition cursor-pointer" data-role="Operador de Trem – Linhas 11/12/13">
                 Operador de Trem
               </button>
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Agente de Atendimento e Segurança">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition cursor-pointer" data-role="Agente de Atendimento e Segurança">
                 Agente de Estação
               </button>
             </div>
@@ -412,7 +412,7 @@
               <button 
                 type="button" 
                 id="btnSuggestEmail" 
-                class="text-[10px] font-semibold text-[#272C7C] hover:text-[#F05A22] transition underline"
+                class="text-[10px] font-semibold text-[#272C7C] hover:text-[#F05A22] transition underline cursor-pointer"
                 title="Gera a sugestão com base no nome digitado"
               >
                 Sugerir pelo Nome
@@ -539,7 +539,7 @@
               <button 
                 type="button" 
                 id="btnAutoAlign" 
-                class="px-2.5 py-1 text-xs font-semibold text-[#272C7C] bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-md transition flex items-center gap-1 shadow-2xs"
+                class="px-2.5 py-1 text-xs font-semibold text-[#272C7C] bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-md transition flex items-center gap-1 shadow-2xs cursor-pointer"
                 title="Alinha a logo e o texto perfeitamente pelo centro vertical"
               >
                 <svg class="w-3.5 h-3.5 text-[#272C7C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -660,27 +660,20 @@
       <svg class="w-11 h-11 text-slate-800 group-hover:text-amber-500 drop-shadow-xs transition-colors duration-500" viewBox="0 0 100 100" fill="currentColor">
         <!-- Compasso (Braços sob o esquadro no 1º Grau) -->
         <g opacity="0.95">
-          <!-- Articulação superior do compasso -->
           <circle cx="50" cy="18" r="6" fill="currentColor"/>
           <circle cx="50" cy="18" r="2.5" fill="#ffffff"/>
-          <!-- Perna esquerda -->
           <polygon points="48,22 52,22 24,88 20,87"/>
-          <!-- Perna direita -->
           <polygon points="48,22 52,22 80,87 76,88"/>
         </g>
         <!-- Esquadro (Sobre as pontas do compasso) -->
         <g>
-          <!-- Braço esquerdo do esquadro -->
           <polygon points="50,68 18,36 24,30 50,56" fill="currentColor"/>
-          <!-- Braço direito do esquadro -->
           <polygon points="50,68 82,36 76,30 50,56" fill="currentColor"/>
-          <!-- Vértice 90 graus central -->
           <rect x="47" y="56" width="6" height="12" fill="currentColor" transform="rotate(45 50 62)"/>
         </g>
         <!-- Letra 'G' no centro -->
         <text x="50" y="47" text-anchor="middle" dominant-baseline="central" font-family="'Times New Roman', serif" font-weight="bold" font-size="16" fill="currentColor">G</text>
       </svg>
-      <!-- Tooltip sutil e discreto -->
       <span class="absolute -top-7 right-0 text-[10px] font-mono tracking-wider font-semibold text-amber-900 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded shadow-sm opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap">
         T∴F∴A∴ ∴
       </span>
@@ -727,6 +720,39 @@
     let currentPresetKey = 'medium';
     let userHasManuallyEditedEmail = false;
     let currentFontScale = 1.0;
+
+    // Logotipo Oficial Trivia Trens embutido em vetor SVG puro (Data URI)
+    // Isso garante funcionamento 100% offline, no GitHub Pages e previne o erro "Access to fetch at ... blocked by CORS"
+    const TRIVIA_OFFICIAL_SVG_DATA = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 247" width="1000" height="247">
+        <defs>
+          <style>
+            .c-orange { fill: #F05A22; }
+            .c-navy { fill: #272C7C; }
+            .c-green { fill: #009A49; }
+          </style>
+        </defs>
+        <!-- Asa Superior Aerodinâmica Laranja -->
+        <path class="c-orange" d="M245.8,32.2 C386.5,8.1 582.4,-1.8 775.2,1.2 C854.7,2.5 932.1,8.3 1000,18.4 C988.6,35.7 949.2,95.3 888.7,143.5 C843.4,179.6 805.1,192.5 765.9,190.2 C797.1,158.4 804.8,118.6 777.2,85.2 C746.4,47.9 663.7,29.1 532.5,31.5 C413.2,33.7 319.4,48.2 245.8,32.2 Z"/>
+        <!-- Onda Central Azul Marinho -->
+        <path class="c-navy" d="M112.5,67.4 C255.8,42.5 452.1,30.8 650.3,34.2 C748.2,35.9 834.7,46.5 901.8,66.8 C852.1,98.6 811.2,143.8 800.7,192.3 C762.5,150.2 730.4,107.6 687.2,84.1 C634.3,55.3 538.9,49.8 402.1,53.4 C280.7,56.6 189.2,74.5 112.5,67.4 Z"/>
+        <!-- Onda Inferior Verde -->
+        <path class="c-green" d="M14.2,98.6 C162.4,72.1 354.2,60.8 548.7,64.2 C639.4,65.8 718.3,75.4 780.2,93.6 C741.5,116.8 709.8,149.2 688.1,189.5 C650.2,154.6 601.4,122.3 534.8,103.5 C464.3,83.6 364.5,82.4 250.7,86.2 C154.2,89.4 76.5,104.7 14.2,98.6 Z"/>
+        <!-- Tipografia Vetorial TRIVIA -->
+        <!-- Letra T -->
+        <path class="c-navy" d="M165.2,109.4 L294.8,109.4 C304.5,109.4 312.4,117.3 312.4,127 C312.4,136.7 304.5,144.6 294.8,144.6 L254.2,144.6 L254.2,238.5 C254.2,243.2 250.4,247 245.7,247 L214.3,247 C209.6,247 205.8,243.2 205.8,238.5 L205.8,144.6 L165.2,144.6 C155.5,144.6 147.6,136.7 147.6,127 C147.6,117.3 155.5,109.4 165.2,109.4 Z"/>
+        <!-- Letra R -->
+        <path class="c-navy" d="M333.6,114.2 C333.6,111.6 335.7,109.4 338.4,109.4 L391.2,109.4 C421.5,109.4 445.6,125.7 445.6,151.2 C445.6,168.4 434.2,182.5 416.8,189.1 L451.2,239.5 C453.8,243.3 451.2,247 446.5,247 L412.3,247 C408.2,247 404.6,244.7 402.5,241.2 L372.4,195.4 L368.5,195.4 L368.5,238.5 C368.5,243.2 364.7,247 360,247 L342.1,247 C337.4,247 333.6,243.2 333.6,238.5 L333.6,114.2 Z M368.5,166.8 L387.6,166.8 C398.5,166.8 406.8,160.7 406.8,150.8 C406.8,141.2 398.5,135.2 387.6,135.2 L368.5,135.2 L368.5,166.8 Z"/>
+        <!-- Letra I -->
+        <path class="c-navy" d="M474.5,114.2 C474.5,111.6 476.6,109.4 479.2,109.4 L511.4,109.4 C514.1,109.4 516.2,111.6 516.2,114.2 L516.2,242.2 C516.2,244.8 514.1,247 511.4,247 L479.2,247 C476.6,247 474.5,244.8 474.5,242.2 L474.5,114.2 Z"/>
+        <!-- Letra V -->
+        <path class="c-navy" d="M537.4,113.8 C537.4,111.4 539.3,109.4 541.8,109.4 L574.6,109.4 C578.1,109.4 581.3,111.5 582.7,114.7 L612.4,185.6 L641.8,114.7 C643.2,111.5 646.4,109.4 649.9,109.4 L682.7,109.4 C685.2,109.4 687.1,111.4 687.1,113.8 C687.1,114.6 686.9,115.4 686.5,116.2 L632.4,239.8 C630.7,243.6 626.8,246.2 622.4,246.2 L602.1,246.2 C597.7,246.2 593.8,243.6 592.1,239.8 L538.0,116.2 C537.6,115.4 537.4,114.6 537.4,113.8 Z"/>
+        <!-- Letra I -->
+        <path class="c-navy" d="M710.2,114.2 C710.2,111.6 712.3,109.4 714.9,109.4 L747.1,109.4 C749.8,109.4 751.9,111.6 751.9,114.2 L751.9,242.2 C751.9,244.8 749.8,247 747.1,247 L714.9,247 C712.3,247 710.2,244.8 710.2,242.2 L710.2,114.2 Z"/>
+        <!-- Letra A -->
+        <path class="c-navy" d="M802.1,109.4 L832.4,109.4 C837.2,109.4 841.4,112.4 843.1,116.8 L888.6,239.5 C889.8,242.8 887.4,246.2 883.8,246.2 L852.1,246.2 C848.2,246.2 844.7,243.8 843.3,240.1 L833.6,213.8 L800.8,213.8 L791.1,240.1 C789.7,243.8 786.2,246.2 782.3,246.2 L750.6,246.2 C747.0,246.2 744.6,242.8 745.8,239.5 L791.4,116.8 C793.1,112.4 797.3,109.4 802.1,109.4 Z M817.2,154.2 L808.6,183.4 L825.8,183.4 L817.2,154.2 Z"/>
+      </svg>
+    `);
 
     // Elementos DOM
     const previewLogoImg = document.getElementById('previewLogoImg');
@@ -833,10 +859,10 @@
       // Atualiza visual dos botões
       btnSizePresets.forEach(btn => {
         if (btn.dataset.size === key) {
-          btn.className = 'btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-[#272C7C] border-[#272C7C] text-white shadow-xs';
+          btn.className = 'btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-[#272C7C] border-[#272C7C] text-white shadow-xs cursor-pointer';
           btn.querySelector('span:last-child').className = 'text-[10px] font-normal text-indigo-200';
         } else {
-          btn.className = 'btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C]';
+          btn.className = 'btn-size-preset py-2 px-2.5 rounded-lg border text-xs font-semibold text-center transition flex flex-col items-center gap-0.5 bg-white border-slate-200 text-slate-700 hover:border-[#272C7C] cursor-pointer';
           btn.querySelector('span:last-child').className = 'text-[10px] font-normal text-slate-400';
         }
       });
@@ -899,7 +925,7 @@
       guideLineH.style.display = 'none';
     }
 
-    // Alinhamento Automático Perfeito (Ideia 2)
+    // Alinhamento Automático Perfeito
     function autoAlignElements() {
       const preset = RESOLUTION_PRESETS[currentPresetKey];
       const bottomAreaHeight = preset.stripes.bottom + (preset.stripes.barHeight * 3) + 4;
@@ -910,14 +936,11 @@
       mouseState.logo.y = logoY;
       mouseState.logo.x = preset.defaultLogo.x;
 
-      // Calcula centro vertical da logo
       const logoCenterY = logoY + (mouseState.logo.height / 2);
 
-      // Altura do bloco de textos
       const textRect = dragTextItem.getBoundingClientRect();
       const textHeight = textRect.height || 50;
 
-      // Alinha o centro vertical do texto com o centro da logo
       const textY = Math.max(4, Math.round(logoCenterY - (textHeight / 2)));
       const textX = Math.round(mouseState.logo.x + mouseState.logo.width + 18);
 
@@ -955,7 +978,6 @@
       }
     }
 
-    // Easter Egg 1: A Bateria de 3 Pancadas do Aprendiz (Bateria OO O / 3 cliques)
     btnEasterEggBateria.addEventListener('click', () => {
       clickCountBateria++;
       clearTimeout(clickBateriaTimer);
@@ -971,20 +993,17 @@
       }
     });
 
-    // Easter Egg 2: Pavimento Mosaico no fundo da mesa de trabalho
     btnToggleMosaicFloor.addEventListener('click', () => {
       previewSurround.classList.toggle('pavimento-mosaico');
       const isMosaic = previewSurround.classList.contains('pavimento-mosaico');
       showNotification(isMosaic ? 'Pavimento Mosaico estendido sob a assinatura.' : 'Fundo padrão restaurado.');
     });
 
-    // Clique na marca d'água oculta ativa o modo Aprendiz e exibe instrução
     masonicHiddenWatermark.addEventListener('click', () => {
       ativarModoAprendiz();
       console.log('%c[∴] "Batei e abrir-se-vos-á; buscai e achareis."', 'color: #f59e0b; font-weight: bold; font-style: italic;');
     });
 
-    // Easter Egg 3: Inserir a abreviação dos três pontos ∴
     btnInsertThreeDots.addEventListener('click', () => {
       let val = inputName.value.trim();
       if (!val) val = 'Irmão Aprendiz';
@@ -997,10 +1016,8 @@
       showNotification('Abreviatura sagrada dos três pontos (∴) aplicada.');
     });
 
-    // Easter Egg 4: Reconhecimento por Teclado (Palavra Sagrada "BOAZ" ou "GADU")
     window.addEventListener('keydown', (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        // Se digitar "boaz" no campo nome ou cargo, sugere a citação
         if (e.key.toLowerCase() === 'z' && document.activeElement.value.toLowerCase().endsWith('boa')) {
           showNotification('Palavra Sagrada do 1º Grau reconhecida: Força na Coluna B.');
         }
@@ -1010,7 +1027,6 @@
       keyBuffer += e.key.toLowerCase();
       if (keyBuffer.length > 6) keyBuffer = keyBuffer.slice(-6);
 
-      // Digitar "gadu" ou "boaz" na tela fora dos inputs
       if (keyBuffer.includes('gadu') || keyBuffer.includes('boaz')) {
         keyBuffer = '';
         ativarModoAprendiz();
@@ -1061,14 +1077,13 @@
         let newX = Math.max(2, Math.min(currentConfig.width - 40, activeDrag.origX + deltaX));
         let newY = Math.max(2, Math.min(currentConfig.height - 20, activeDrag.origY + deltaY));
 
-        // Snapping Magnético entre Centros Verticais (Ideia 2)
         const textH = dragTextItem.offsetHeight || 50;
         const logoCenterY = mouseState.logo.y + (mouseState.logo.height / 2);
         
         if (key === 'text') {
           const currentTextCenterY = newY + (textH / 2);
           if (Math.abs(currentTextCenterY - logoCenterY) < 6) {
-            newY = Math.round(logoCenterY - (textH / 2)); // Trava magnética
+            newY = Math.round(logoCenterY - (textH / 2));
             showGuideLine(Math.round(logoCenterY));
           } else {
             hideGuideLine();
@@ -1077,7 +1092,7 @@
           const textCenterY = mouseState.text.y + (textH / 2);
           const currentLogoCenterY = newY + (mouseState.logo.height / 2);
           if (Math.abs(currentLogoCenterY - textCenterY) < 6) {
-            newY = Math.round(textCenterY - (mouseState.logo.height / 2)); // Trava magnética
+            newY = Math.round(textCenterY - (mouseState.logo.height / 2));
             showGuideLine(Math.round(textCenterY));
           } else {
             hideGuideLine();
@@ -1119,95 +1134,53 @@
 
     let currentLogoImage = new Image();
 
-    // SVG Vetorial Oficial Trivia Trens (Garante carregamento 100% livre de CORS no GitHub Pages)
-    const EMBEDDED_OFFICIAL_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3268 807" width="3268" height="807">
-      <!-- Onda Laranja Superior -->
-      <path fill="#F05A22" d="M3268 626c-112-88-251-197-408-294-374-231-789-322-1327-332C981-11 506 88 17 259c118-9 242-15 369-15 450 0 859 66 1226 198 259 93 496 226 711 398 266 213 540 188 945-214z"/>
-      <!-- Onda Azul Marinho Intermediária -->
-      <path fill="#272C7C" d="M3032 637c-310-186-633-317-967-393-360-82-740-123-1138-123-289 0-569 22-838 67 176-26 360-40 551-40 404 0 788 42 1152 126 339 78 668 212 986 401-248 185-484 216-746-38z"/>
-      <!-- Onda Verde Inferior -->
-      <path fill="#009A49" d="M2680 644c-267-142-550-241-847-297-317-60-652-90-1004-90-234 0-462 14-683 43 147-17 301-26 461-26 357 0 697 30 1020 91 299 57 585 157 853 300z"/>
-      <!-- Letra T -->
-      <path fill="#272C7C" d="M518 368h456c32 0 58 26 58 58v18c0 32-26 58-58 58H822v268c0 28-22 50-50 50h-53c-28 0-50-22-50-50V502H518c-32 0-58-26-58-58v-18c0-32 26-58 58-58z"/>
-      <!-- Letra R -->
-      <path fill="#272C7C" d="M1095 368h212c122 0 205 77 205 186 0 79-46 142-120 171l141 190c12 16 7 39-10 49-6 4-13 6-20 6h-66c-18 0-34-9-43-24l-137-187h-59v161c0 28-22 50-50 50h-53c-28 0-50-22-50-50V368zm103 277h106c62 0 106-38 106-93s-44-93-106-93h-106v186z"/>
-      <!-- Letra I -->
-      <path fill="#272C7C" d="M1654 368h53c28 0 50 22 50 50v354c0 28-22 50-50 50h-53c-28 0-50-22-50-50V418c0-28 22-50 50-50z"/>
-      <!-- Letra V -->
-      <path fill="#272C7C" d="M1896 368h56c22 0 41 14 47 35l143 419 143-419c6-21 25-35 47-35h56c28 0 48 27 39 53l-206 585c-11 31-40 51-73 51h-12c-33 0-62-20-73-51l-206-585c-9-26 11-53 39-53z"/>
-      <!-- Letra I -->
-      <path fill="#272C7C" d="M2504 368h53c28 0 50 22 50 50v354c0 28-22 50-50 50h-53c-28 0-50-22-50-50V418c0-28 22-50 50-50z"/>
-      <!-- Letra A -->
-      <path fill="#272C7C" d="M2857 368h62c33 0 62 20 73 51l206 585c9 26-11 53-39 53h-56c-22 0-41-14-47-35l-44-130h-243l-44 130c-6 21-25 35-47 35h-56c-28 0-48-27-39-53l206-585c11-31 40-51 73-51zm182 429l-88-261-88 261h176z"/>
-    </svg>`;
-
-    // Converte SVG string em Data URL segura e independente de CORS
-    function getEmbeddedSvgDataUrl() {
-      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(EMBEDDED_OFFICIAL_LOGO_SVG);
-    }
-
-    // Carregamento de logo com fallback inteligente imune a CORS
-    async function loadLogoFromLink(url) {
-      const cleanUrl = (url || '').trim();
-      logoStatusBadge.textContent = 'Carregando logo...';
-      logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-
-      // Se for a logo oficial da Trivia, usar o vetor embutido diretamente evita qualquer erro de CORS no GitHub Pages
-      const isOfficialTrivia = !cleanUrl || cleanUrl.includes('triviatrens.com.br') || cleanUrl.includes('logo-trivia');
-
-      if (isOfficialTrivia) {
-        const dataUrl = getEmbeddedSvgDataUrl();
-        const img = new Image();
-        img.onload = () => {
-          currentLogoImage = img;
-          previewLogoImg.src = dataUrl;
-          logoStatusBadge.textContent = 'Logo Oficial Ativo';
-          logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
-
-          const ratio = 3268 / 807;
-          mouseState.logo.height = mouseState.logo.width / ratio;
-          dragLogoItem.style.height = `${mouseState.logo.height}px`;
-        };
-        img.src = dataUrl;
-        return;
-      }
-
-      // Para URLs externas customizadas fornecidas pelo usuário:
-      let resolvedSrc = cleanUrl;
-
-      // Tenta carregar usando elemento Image com CORS habilitado
+    // Carregamento de logotipo 100% livre de bloqueios de CORS
+    function setLogoImage(srcUrl, isOfficial = false) {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
+      
+      // Se não for um data-uri e for imagem externa, podemos usar crossorigin se for seguro, senão carregamento direto
+      if (!srcUrl.startsWith('data:')) {
+        img.crossOrigin = 'anonymous';
+      }
 
       img.onload = () => {
         currentLogoImage = img;
-        previewLogoImg.src = resolvedSrc;
+        previewLogoImg.src = srcUrl;
         logoStatusBadge.textContent = 'Logo Carregado';
-        logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
+        logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded';
 
         if (img.naturalWidth && img.naturalHeight) {
           const ratio = img.naturalWidth / img.naturalHeight;
           mouseState.logo.height = mouseState.logo.width / ratio;
           dragLogoItem.style.height = `${mouseState.logo.height}px`;
         }
-        showNotification('Logo carregado com sucesso!');
       };
 
       img.onerror = () => {
-        // Fallback para o vetor oficial caso a URL externa falhe ou sofra bloqueio
-        const dataUrl = getEmbeddedSvgDataUrl();
-        const fallbackImg = new Image();
-        fallbackImg.onload = () => {
-          currentLogoImage = fallbackImg;
-          previewLogoImg.src = dataUrl;
-          logoStatusBadge.textContent = 'Logo Oficial Restaurado';
-          logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-        };
-        fallbackImg.src = dataUrl;
-        showNotification('Não foi possível carregar a URL externa. Logo oficial mantido.', false);
+        // Fallback imediato: se qualquer URL externa falhar, carrega o vetor oficial embutido
+        console.warn('URL externa inacessível. Aplicando logotipo oficial embutido.');
+        setLogoImage(TRIVIA_OFFICIAL_SVG_DATA, true);
+        logoStatusBadge.textContent = 'Logo Oficial';
+        logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded';
       };
 
-      img.src = resolvedSrc;
+      img.src = srcUrl;
+    }
+
+    function loadLogoFromLink(url) {
+      const cleanUrl = (url || '').trim();
+      
+      // Se for a URL padrão da Trivia ou estiver em branco, usa imediatamente o SVG embutido de alta fidelidade
+      // Evita o bloqueio de rede ("Access to fetch at ... blocked by CORS policy")
+      if (!cleanUrl || cleanUrl.includes('triviatrens.com.br/img/logos/logo-trivia') || cleanUrl.includes('logo-trivia')) {
+        setLogoImage(TRIVIA_OFFICIAL_SVG_DATA, true);
+        showNotification('Logotipo oficial da Trivia carregado!');
+        return;
+      }
+
+      // Se o usuário digitou outra imagem da web:
+      setLogoImage(cleanUrl, false);
+      showNotification('Carregando imagem informada...');
     }
 
     btnLoadLogoFromUrl.addEventListener('click', () => {
@@ -1261,7 +1234,7 @@
       }
     }
 
-    // Auto-sugestão de E-mail a partir do Nome (Ideia 1)
+    // Auto-sugestão de E-mail a partir do Nome
     inputName.addEventListener('input', () => {
       if (!userHasManuallyEditedEmail) {
         const suggested = generateEmailFromName(inputName.value);
@@ -1274,13 +1247,11 @@
       updatePreviewText();
     });
 
-    // Usuário alterando manualmente o e-mail (permite edição livre)
     inputEmail.addEventListener('input', () => {
       userHasManuallyEditedEmail = inputEmail.value.trim().length > 0;
       updatePreviewText();
     });
 
-    // Botão explícito para forçar a sugestão de e-mail com base no nome
     btnSuggestEmail.addEventListener('click', () => {
       const suggested = generateEmailFromName(inputName.value);
       if (suggested) {
@@ -1293,13 +1264,13 @@
       }
     });
 
-    // Máscara Automática de Telefone (Ideia 1)
+    // Máscara Automática de Telefone
     inputPhone.addEventListener('input', (e) => {
       e.target.value = applyPhoneMask(e.target.value);
       updatePreviewText();
     });
 
-    // Badges de Cargos Frequentes (Ideia 1)
+    // Badges de Cargos Frequentes
     btnRoleBadges.forEach(badge => {
       badge.addEventListener('click', () => {
         inputRole.value = badge.dataset.role;
@@ -1381,7 +1352,7 @@
       }, 4000);
     }
 
-    // Renderização do Canvas em Alta Resolução (2x HD) respeitando as novas proporções
+    // Renderização do Canvas em Alta Resolução (2x HD)
     function generateCanvas() {
       const canvas = document.getElementById('exportCanvas');
       const ctx = canvas.getContext('2d');
@@ -1395,11 +1366,11 @@
       canvas.height = height * scale;
       ctx.scale(scale, scale);
 
-      // Fundo branco
+      // Fundo branco sólido
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, width, height);
 
-      // Renderiza o logo obtido do link
+      // Renderiza o logotipo
       if (currentLogoImage && currentLogoImage.complete && currentLogoImage.naturalWidth > 0) {
         try {
           ctx.drawImage(
@@ -1454,13 +1425,12 @@
         ctx.fillText(phone, textX, textY);
       }
 
-      // Três Barras Coloridas Oficiais (Com menor espaçamento do texto e altura reduzida)
+      // Três Barras Coloridas Oficiais
       const barLeft = preset.stripes.left;
       const fullBarWidth = width - (preset.stripes.left + preset.stripes.right);
       const barH = preset.stripes.barHeight;
       const barGap = 1.8;
 
-      // Posição vertical compacta próxima ao fundo
       const baseY = height - (preset.stripes.bottom + (barH * 3) + (barGap * 2));
 
       // Barra 1: Laranja
@@ -1579,6 +1549,8 @@
     window.addEventListener('load', () => {
       applyPreset('medium');
       updatePreviewText();
+      
+      // Carrega o vetor oficial imediatamente sem nenhuma requisição de rede suscetível a CORS
       loadLogoFromLink(inputLogoUrl.value.trim());
 
       // ========================================================
