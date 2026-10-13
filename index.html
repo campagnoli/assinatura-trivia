@@ -81,6 +81,70 @@
       background: #cbd5e1;
       border-radius: 4px;
     }
+    #apprenticeTrigger::after {
+      content: '∴';
+      position: absolute;
+      right: 3px;
+      bottom: 0;
+      color: #f5c451;
+      font-size: 10px;
+      line-height: 1;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #apprenticeTrigger:hover::after,
+    #apprenticeTrigger:focus-visible::after {
+      opacity: 1;
+    }
+    #signaturePreviewStage.mosaic-floor {
+      background-color: #fff;
+      background-image:
+        linear-gradient(45deg, #171717 25%, transparent 25%, transparent 75%, #171717 75%),
+        linear-gradient(45deg, #171717 25%, transparent 25%, transparent 75%, #171717 75%);
+      background-position: 0 0, 16px 16px;
+      background-size: 32px 32px;
+    }
+    .apprentice-watermark {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #475569;
+      opacity: 0.035;
+      transform: rotate(0deg);
+      transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+    }
+    .apprentice-watermark:hover,
+    .apprentice-watermark:focus-visible {
+      color: #b8860b;
+      opacity: 1;
+      transform: rotate(5deg);
+    }
+    .apprentice-watermark svg {
+      width: 58px;
+      height: 58px;
+    }
+    .apprentice-watermark-greeting {
+      max-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      white-space: nowrap;
+      transition: max-width 0.25s ease, opacity 0.25s ease;
+    }
+    .apprentice-watermark:hover .apprentice-watermark-greeting,
+    .apprentice-watermark:focus-visible .apprentice-watermark-greeting {
+      max-width: 160px;
+      opacity: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .apprentice-watermark,
+      .apprentice-watermark-greeting {
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased">
@@ -89,11 +153,14 @@
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-[#272C7C] flex items-center justify-center text-white font-bold text-lg shadow-sm">
-          T
-        </div>
-        <div>
+        <button id="apprenticeTrigger" type="button" aria-label="Símbolo Trivia Trens" title="Trivia Trens" class="relative w-10 h-10 rounded-xl bg-[#272C7C] hover:bg-[#1f2468] flex items-center justify-center text-white font-bold text-lg shadow-sm transition">
+          <span id="brandMonogram">T</span>
+        </button>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
           <h1 class="text-base font-bold text-slate-900 tracking-tight leading-tight">Trivia Trens</h1>
+            <span id="apprenticeBadge" class="hidden rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800">3 Anos ∴</span>
+          </div>
         </div>
       </div>
 
@@ -108,6 +175,23 @@
 
   <!-- Conteúdo Principal -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <section id="apprenticeChamberPanel" class="hidden mb-8 rounded-xl border border-amber-500/50 bg-slate-900 p-5 text-amber-50 shadow-lg sm:p-6" aria-labelledby="apprenticeChamberTitle">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-wider text-amber-300">1º Grau · Câmara do Aprendiz</p>
+          <h2 id="apprenticeChamberTitle" class="mt-1 text-lg font-bold">Os trabalhos estão abertos</h2>
+        </div>
+        <button id="btnCloseChamber" type="button" class="rounded-md border border-amber-200/30 px-3 py-1.5 text-xs font-semibold text-amber-100 transition hover:bg-white/10">Fechar Câmara</button>
+      </div>
+      <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200">
+        As Três Grandes Colunas são <em>Sabedoria, Força e Beleza</em>. Na Coluna B, o <em>Maço e o Cinzel</em> recordam o trabalho sobre a pedra bruta.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-2">
+        <button id="btnMosaicFloor" type="button" aria-pressed="false" class="rounded-md border border-amber-300/60 bg-amber-300/10 px-3 py-2 text-xs font-semibold text-amber-100 transition hover:bg-amber-300/20">Pavimento Mosaico</button>
+        <button id="btnInsertTriad" type="button" aria-pressed="false" class="rounded-md border border-amber-300/60 bg-amber-300/10 px-3 py-2 text-xs font-semibold text-amber-100 transition hover:bg-amber-300/20">Inserir ∴ no Nome</button>
+      </div>
+    </section>
+
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
       <!-- Formulário de Controle -->
@@ -470,7 +554,7 @@
           </div>
 
           <!-- Wrapper de Pré-visualização -->
-          <div class="overflow-x-auto p-4 bg-slate-200/50 rounded-xl border border-slate-200/80 flex justify-center items-center relative">
+          <div id="signaturePreviewStage" class="overflow-x-auto p-4 bg-slate-200/50 rounded-xl border border-slate-200/80 flex justify-center items-center relative">
             
             <div id="signaturePreviewBox" class="signature-canvas-wrapper bg-white rounded-sm shadow-xs select-none relative box-border overflow-hidden transition-all duration-200" style="width: 500px; height: 125px;">
               
@@ -565,11 +649,19 @@
     </div>
   </main>
 
+  <button id="apprenticeWatermark" type="button" aria-label="Ativar ou desativar a Câmara do Aprendiz" aria-pressed="false" title="T∴F∴A∴ ∴" class="apprentice-watermark">
+    <span class="apprentice-watermark-greeting text-xs font-semibold">T∴F∴A∴ ∴</span>
+    <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M40 9 19 68M40 9l21 59" />
+        <path d="M16 25v43h48V25M16 25h24" />
+      </g>
+    </svg>
+  </button>
+
   <canvas id="exportCanvas" class="hidden"></canvas>
 
   <script>
-    console.info('A G D G A D U');
-
     // Presets de Resolução Proporcional (4:1)
     const RESOLUTION_PRESETS = {
       compact: {
@@ -617,6 +709,15 @@
     const inputName = document.getElementById('inputName');
     const inputRole = document.getElementById('inputRole');
     const inputEmail = document.getElementById('inputEmail');
+    const apprenticeTrigger = document.getElementById('apprenticeTrigger');
+    const brandMonogram = document.getElementById('brandMonogram');
+    const apprenticeBadge = document.getElementById('apprenticeBadge');
+    const apprenticeChamberPanel = document.getElementById('apprenticeChamberPanel');
+    const apprenticeWatermark = document.getElementById('apprenticeWatermark');
+    const signaturePreviewStage = document.getElementById('signaturePreviewStage');
+    const btnCloseChamber = document.getElementById('btnCloseChamber');
+    const btnMosaicFloor = document.getElementById('btnMosaicFloor');
+    const btnInsertTriad = document.getElementById('btnInsertTriad');
     const btnSuggestEmail = document.getElementById('btnSuggestEmail');
     const btnRoleBadges = document.querySelectorAll('.btn-role-badge');
     const inputPhone = document.getElementById('inputPhone');
@@ -663,6 +764,10 @@
     };
 
     let activeDrag = null;
+    let apprenticeChamberOpen = false;
+    let headerClickCount = 0;
+    let headerClickResetTimer = null;
+    let secretKeyBuffer = '';
 
     // Utilitário de Geração de E-mail a partir do Nome
     function generateEmailFromName(fullName) {
@@ -1027,6 +1132,10 @@
         previewPhone.textContent = '';
         previewPhone.classList.add('hidden');
       }
+
+      const nameHasTriad = inputName.value.trimEnd().endsWith('∴');
+      btnInsertTriad.setAttribute('aria-pressed', String(nameHasTriad));
+      btnInsertTriad.textContent = nameHasTriad ? 'Remover ∴ do Nome' : 'Inserir ∴ no Nome';
     }
 
     // Auto-sugestão de E-mail a partir do Nome (Ideia 1)
@@ -1040,6 +1149,7 @@
         }
       }
       updatePreviewText();
+      recognizeSacredWord(event);
     });
 
     // Usuário alterando manualmente o e-mail (permite edição livre)
@@ -1075,7 +1185,10 @@
       });
     });
 
-    inputRole.addEventListener('input', updatePreviewText);
+    inputRole.addEventListener('input', (event) => {
+      updatePreviewText();
+      recognizeSacredWord(event);
+    });
 
     checkIncludePhone.addEventListener('change', () => {
       if (checkIncludePhone.checked) {
@@ -1148,6 +1261,128 @@
         statusToast.classList.add('hidden');
       }, 4000);
     }
+
+    function setMosaicFloor(isActive) {
+      signaturePreviewStage.classList.toggle('mosaic-floor', isActive);
+      btnMosaicFloor.setAttribute('aria-pressed', String(isActive));
+      return isActive;
+    }
+
+    function toggleMosaicFloor() {
+      const isActive = !signaturePreviewStage.classList.contains('mosaic-floor');
+      setMosaicFloor(isActive);
+      return isActive;
+    }
+
+    function setApprenticeChamber(isOpen) {
+      apprenticeChamberOpen = isOpen;
+      apprenticeChamberPanel.classList.toggle('hidden', !isOpen);
+      apprenticeBadge.classList.toggle('hidden', !isOpen);
+      brandMonogram.textContent = isOpen ? '📐' : 'T';
+      apprenticeWatermark.setAttribute('aria-pressed', String(isOpen));
+
+      if (!isOpen) setMosaicFloor(false);
+    }
+
+    function openApprenticeChamber() {
+      if (apprenticeChamberOpen) return;
+      setApprenticeChamber(true);
+      showNotification('Câmara do Aprendiz aberta.');
+    }
+
+    function closeApprenticeChamber() {
+      setApprenticeChamber(false);
+    }
+
+    function toggleApprenticeChamber() {
+      if (apprenticeChamberOpen) {
+        closeApprenticeChamber();
+      } else {
+        openApprenticeChamber();
+      }
+    }
+
+    function recognizeSacredWord(event) {
+      const field = event.currentTarget;
+      const value = field.value.trim().toLowerCase();
+
+      if (!value.endsWith('boaz')) {
+        delete field.dataset.boazRecognized;
+        return;
+      }
+      if (field.dataset.boazRecognized === value) return;
+
+      field.dataset.boazRecognized = value;
+      showNotification('Palavra Sagrada do 1º Grau reconhecida: Força na Coluna B');
+    }
+
+    apprenticeTrigger.addEventListener('click', () => {
+      headerClickCount += 1;
+      window.clearTimeout(headerClickResetTimer);
+      headerClickResetTimer = window.setTimeout(() => {
+        headerClickCount = 0;
+      }, 650);
+
+      if (headerClickCount >= 3) {
+        window.clearTimeout(headerClickResetTimer);
+        headerClickCount = 0;
+        openApprenticeChamber();
+      }
+    });
+
+    btnCloseChamber.addEventListener('click', closeApprenticeChamber);
+    btnMosaicFloor.addEventListener('click', toggleMosaicFloor);
+    btnInsertTriad.addEventListener('click', () => {
+      const name = inputName.value.trimEnd();
+      inputName.value = name.endsWith('∴')
+        ? name.replace(/\s*∴$/u, '').trimEnd()
+        : `${name}${name ? ' ' : ''}∴`;
+      inputName.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+
+    apprenticeWatermark.addEventListener('click', () => {
+      console.log('%cBatei e abrir-se-vos-á; buscai e achareis.', 'font-style: italic;');
+      toggleApprenticeChamber();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"]')) {
+        secretKeyBuffer = '';
+        return;
+      }
+
+      if (!/^[a-z]$/i.test(event.key)) {
+        secretKeyBuffer = '';
+        return;
+      }
+
+      secretKeyBuffer = `${secretKeyBuffer}${event.key.toLowerCase()}`.slice(-4);
+      if (secretKeyBuffer.endsWith('gadu') || secretKeyBuffer.endsWith('boaz')) {
+        secretKeyBuffer = '';
+        openApprenticeChamber();
+      }
+    });
+
+    window.aprendiz = () => {
+      openApprenticeChamber();
+      console.info('Os trabalhos do 1º Grau estão abertos.');
+    };
+    window.mosaico = toggleMosaicFloor;
+    window.luz = () => {
+      closeApprenticeChamber();
+      console.info('Os trabalhos foram encerrados; retorna a discrição profana.');
+    };
+
+    console.info([
+      '                 /\\',
+      '                / G \\',
+      '               /_____\\',
+      '               |\\   /|',
+      '               | \\ / |',
+      '               |  V  |'
+    ].join('\n'));
+    console.info('A∴G∴D∴G∴A∴D∴U — À GLÓRIA DO GRANDE ARQUITETO DO UNIVERSO ∴');
+    console.info('Comandos: aprendiz(), mosaico(), luz().');
 
     // Renderização do Canvas em Alta Resolução (2x HD) respeitando as novas proporções
     function generateCanvas() {
