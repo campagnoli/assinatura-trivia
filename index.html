@@ -1299,6 +1299,9 @@
 
     function openApprenticeChamber() {
       if (apprenticeChamberOpen) return;
+      const password = window.prompt('Digite a senha para abrir a Câmara do Aprendiz:');
+      if (password !== 'boaz') return;
+
       setApprenticeChamber(true);
       showNotification('Câmara do Aprendiz aberta.');
     }
