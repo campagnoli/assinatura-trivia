@@ -1119,82 +1119,70 @@
 
     let currentLogoImage = new Image();
 
-    // Carregamento de logo exclusivamente por URL com conversão segura para Blob/Canvas
+    // SVG Vetorial Oficial Trivia Trens (Garante carregamento 100% livre de CORS no GitHub Pages)
+    const EMBEDDED_OFFICIAL_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3268 807" width="3268" height="807">
+      <!-- Onda Laranja Superior -->
+      <path fill="#F05A22" d="M3268 626c-112-88-251-197-408-294-374-231-789-322-1327-332C981-11 506 88 17 259c118-9 242-15 369-15 450 0 859 66 1226 198 259 93 496 226 711 398 266 213 540 188 945-214z"/>
+      <!-- Onda Azul Marinho Intermediária -->
+      <path fill="#272C7C" d="M3032 637c-310-186-633-317-967-393-360-82-740-123-1138-123-289 0-569 22-838 67 176-26 360-40 551-40 404 0 788 42 1152 126 339 78 668 212 986 401-248 185-484 216-746-38z"/>
+      <!-- Onda Verde Inferior -->
+      <path fill="#009A49" d="M2680 644c-267-142-550-241-847-297-317-60-652-90-1004-90-234 0-462 14-683 43 147-17 301-26 461-26 357 0 697 30 1020 91 299 57 585 157 853 300z"/>
+      <!-- Letra T -->
+      <path fill="#272C7C" d="M518 368h456c32 0 58 26 58 58v18c0 32-26 58-58 58H822v268c0 28-22 50-50 50h-53c-28 0-50-22-50-50V502H518c-32 0-58-26-58-58v-18c0-32 26-58 58-58z"/>
+      <!-- Letra R -->
+      <path fill="#272C7C" d="M1095 368h212c122 0 205 77 205 186 0 79-46 142-120 171l141 190c12 16 7 39-10 49-6 4-13 6-20 6h-66c-18 0-34-9-43-24l-137-187h-59v161c0 28-22 50-50 50h-53c-28 0-50-22-50-50V368zm103 277h106c62 0 106-38 106-93s-44-93-106-93h-106v186z"/>
+      <!-- Letra I -->
+      <path fill="#272C7C" d="M1654 368h53c28 0 50 22 50 50v354c0 28-22 50-50 50h-53c-28 0-50-22-50-50V418c0-28 22-50 50-50z"/>
+      <!-- Letra V -->
+      <path fill="#272C7C" d="M1896 368h56c22 0 41 14 47 35l143 419 143-419c6-21 25-35 47-35h56c28 0 48 27 39 53l-206 585c-11 31-40 51-73 51h-12c-33 0-62-20-73-51l-206-585c-9-26 11-53 39-53z"/>
+      <!-- Letra I -->
+      <path fill="#272C7C" d="M2504 368h53c28 0 50 22 50 50v354c0 28-22 50-50 50h-53c-28 0-50-22-50-50V418c0-28 22-50 50-50z"/>
+      <!-- Letra A -->
+      <path fill="#272C7C" d="M2857 368h62c33 0 62 20 73 51l206 585c9 26-11 53-39 53h-56c-22 0-41-14-47-35l-44-130h-243l-44 130c-6 21-25 35-47 35h-56c-28 0-48-27-39-53l206-585c11-31 40-51 73-51zm182 429l-88-261-88 261h176z"/>
+    </svg>`;
+
+    // Converte SVG string em Data URL segura e independente de CORS
+    function getEmbeddedSvgDataUrl() {
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(EMBEDDED_OFFICIAL_LOGO_SVG);
+    }
+
+    // Carregamento de logo com fallback inteligente imune a CORS
     async function loadLogoFromLink(url) {
-      if (!url) {
-        showNotification('Por favor, informe a URL do logo.', false);
+      const cleanUrl = (url || '').trim();
+      logoStatusBadge.textContent = 'Carregando logo...';
+      logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
+
+      // Se for a logo oficial da Trivia, usar o vetor embutido diretamente evita qualquer erro de CORS no GitHub Pages
+      const isOfficialTrivia = !cleanUrl || cleanUrl.includes('triviatrens.com.br') || cleanUrl.includes('logo-trivia');
+
+      if (isOfficialTrivia) {
+        const dataUrl = getEmbeddedSvgDataUrl();
+        const img = new Image();
+        img.onload = () => {
+          currentLogoImage = img;
+          previewLogoImg.src = dataUrl;
+          logoStatusBadge.textContent = 'Logo Oficial Ativo';
+          logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
+
+          const ratio = 3268 / 807;
+          mouseState.logo.height = mouseState.logo.width / ratio;
+          dragLogoItem.style.height = `${mouseState.logo.height}px`;
+        };
+        img.src = dataUrl;
         return;
       }
 
-      logoStatusBadge.textContent = 'Buscando logo...';
-      logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
+      // Para URLs externas customizadas fornecidas pelo usuário:
+      let resolvedSrc = cleanUrl;
 
-      let resolvedBlobUrl = null;
-
-      // 1. Tenta fetch direto
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          const blob = await res.blob();
-          resolvedBlobUrl = URL.createObjectURL(blob);
-        }
-      } catch (e) {
-        console.warn('Fetch direto bloqueado por CORS. Tentando espelho/proxy...', e);
-      }
-
-      // 2. Se for o logo da Trivia, consulta o espelho de Wikimedia
-      if (!resolvedBlobUrl && (url.includes('triviatrens.com.br') || url.includes('logo-trivia'))) {
-        try {
-          const wikiQuery = await fetch('https://commons.wikimedia.org/w/api.php?action=query&titles=File:Logo-trivia.svg&prop=imageinfo&iiprop=url&format=json&origin=*');
-          if (wikiQuery.ok) {
-            const data = await wikiQuery.json();
-            const pages = data?.query?.pages || {};
-            const firstKey = Object.keys(pages)[0];
-            const directUrl = pages[firstKey]?.imageinfo?.[0]?.url;
-            if (directUrl) {
-              const directFetch = await fetch(directUrl);
-              if (directFetch.ok) {
-                const blob = await directFetch.blob();
-                resolvedBlobUrl = URL.createObjectURL(blob);
-              }
-            }
-          }
-        } catch (err) {
-          console.warn('Tentativa via Wikimedia falhou:', err);
-        }
-      }
-
-      // 3. Fallback proxies públicos CORS
-      if (!resolvedBlobUrl) {
-        const proxies = [
-          (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-          (u) => `https://corsproxy.io/?url=${encodeURIComponent(u)}`
-        ];
-
-        for (const proxyFn of proxies) {
-          try {
-            const proxyRes = await fetch(proxyFn(url));
-            if (proxyRes.ok) {
-              const blob = await proxyRes.blob();
-              resolvedBlobUrl = URL.createObjectURL(blob);
-              break;
-            }
-          } catch (err) {
-            console.warn('Proxy CORS falhou:', err);
-          }
-        }
-      }
-
-      const targetSrc = resolvedBlobUrl || url;
+      // Tenta carregar usando elemento Image com CORS habilitado
       const img = new Image();
-      if (!resolvedBlobUrl) {
-        img.crossOrigin = 'anonymous';
-      }
+      img.crossOrigin = 'anonymous';
 
       img.onload = () => {
         currentLogoImage = img;
-        previewLogoImg.src = targetSrc;
-        logoStatusBadge.textContent = 'Logo Carregado do Link';
+        previewLogoImg.src = resolvedSrc;
+        logoStatusBadge.textContent = 'Logo Carregado';
         logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
 
         if (img.naturalWidth && img.naturalHeight) {
@@ -1206,13 +1194,20 @@
       };
 
       img.onerror = () => {
-        previewLogoImg.src = url;
-        logoStatusBadge.textContent = 'Exibindo Imagem';
-        logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-        showNotification('Imagem carregada para visualização.');
+        // Fallback para o vetor oficial caso a URL externa falhe ou sofra bloqueio
+        const dataUrl = getEmbeddedSvgDataUrl();
+        const fallbackImg = new Image();
+        fallbackImg.onload = () => {
+          currentLogoImage = fallbackImg;
+          previewLogoImg.src = dataUrl;
+          logoStatusBadge.textContent = 'Logo Oficial Restaurado';
+          logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
+        };
+        fallbackImg.src = dataUrl;
+        showNotification('Não foi possível carregar a URL externa. Logo oficial mantido.', false);
       };
 
-      img.src = targetSrc;
+      img.src = resolvedSrc;
     }
 
     btnLoadLogoFromUrl.addEventListener('click', () => {
