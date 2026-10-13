@@ -73,6 +73,29 @@
       z-index: 20;
       display: none;
     }
+    /* Estilo Maçônico Secreto: Pavimento Mosaico */
+    .pavimento-mosaico {
+      background-color: #ffffff !important;
+      background-image: 
+        linear-gradient(45deg, #1e293b 25%, transparent 25%), 
+        linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #1e293b 75%), 
+        linear-gradient(-45deg, transparent 75%, #1e293b 75%) !important;
+      background-size: 24px 24px !important;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0px !important;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* Marca d'água ultradiscreta do Esquadro e Compasso */
+    .masonic-watermark {
+      opacity: 0.035;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s ease;
+      filter: grayscale(100%);
+    }
+    .masonic-watermark:hover {
+      opacity: 0.85;
+      filter: grayscale(0%);
+      transform: scale(1.08) rotate(3deg);
+    }
     ::-webkit-scrollbar {
       height: 6px;
       width: 6px;
@@ -89,11 +112,24 @@
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-[#272C7C] flex items-center justify-center text-white font-bold text-lg shadow-sm">
-          T
-        </div>
+        <!-- Easter Egg 1: A Bateria de Aprendiz (3 toques no monograma 'T') -->
+        <button 
+          type="button" 
+          id="btnEasterEggBateria" 
+          title="Trivia Trens"
+          class="w-10 h-10 rounded-xl bg-[#272C7C] hover:bg-[#1f2468] active:scale-95 transition flex items-center justify-center text-white font-bold text-lg shadow-sm cursor-pointer select-none relative group"
+        >
+          <span id="headerLogoText">T</span>
+          <!-- Três pontos maçônicos discretos no hover -->
+          <span class="absolute -bottom-1 -right-1 text-[9px] text-amber-400 font-serif opacity-0 group-hover:opacity-100 transition">∴</span>
+        </button>
         <div>
-          <h1 class="text-base font-bold text-slate-900 tracking-tight leading-tight">Trivia Trens</h1>
+          <h1 class="text-base font-bold text-slate-900 tracking-tight leading-tight flex items-center gap-1.5">
+            <span>Trivia Trens</span>
+            <span id="badgeGrau" class="hidden text-[10px] font-mono bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.5 rounded font-bold">
+              3 Anos ∴
+            </span>
+          </h1>
         </div>
       </div>
 
@@ -213,11 +249,59 @@
               </button>
             </div>
             <p id="sizeDescription" class="text-[11px] text-slate-500">
-              O melhor equilíbrio para desktop e dispositivos móveis (proporção 4:1).
-            </p>
-          </div>
+            O melhor equilíbrio para desktop e dispositivos móveis (proporção 4:1).
+          </p>
+        </div>
 
-          <!-- Controle de Tamanho e Escala da Fonte -->
+        <!-- Painel Secreto do Aprendiz (Oculto até ser revelado) -->
+        <div id="masonicApprenticePanel" class="hidden bg-gradient-to-br from-amber-50 via-slate-50 to-indigo-50/50 p-4 rounded-xl border border-amber-300 shadow-sm space-y-3 transition-all duration-300">
+          <div class="flex items-center justify-between border-b border-amber-200/70 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-950 flex items-center gap-1.5 font-serif">
+              <span>📐</span> Câmara do Aprendiz (1º Grau ∴)
+            </span>
+            <span class="text-[10px] bg-amber-200/80 text-amber-900 font-semibold px-2 py-0.5 rounded">
+              Três Grandes Colunas
+            </span>
+          </div>
+          <p class="text-xs text-amber-900/90 leading-relaxed font-serif">
+            <em>"Quem vem lá? Um Aprendiz que bateu à porta do Templo em busca da Luz, guiado pela Sabedoria, Força e Beleza."</em>
+          </p>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-semibold text-slate-700">
+            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+              <span class="block text-sm mb-0.5">🏛️</span>
+              <span class="text-amber-950 font-bold block">Coluna B</span>
+              <span class="text-slate-500 text-[9px]">Força</span>
+            </div>
+            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+              <span class="block text-sm mb-0.5">🔨</span>
+              <span class="text-amber-950 font-bold block">Maço &amp; Cinzel</span>
+              <span class="text-slate-500 text-[9px]">Pedra Bruta</span>
+            </div>
+            <div class="p-2 bg-white/80 rounded-lg border border-amber-200/60 shadow-2xs">
+              <span class="block text-sm mb-0.5">📜</span>
+              <span class="text-amber-950 font-bold block">Três Pontos</span>
+              <span class="text-slate-500 text-[9px]">Sigilo e Honra</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-1 text-[11px]">
+            <button 
+              type="button" 
+              id="btnInsertThreeDots" 
+              class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold rounded border border-amber-300 transition cursor-pointer"
+            >
+              Inserir ∴ no Nome
+            </button>
+            <button 
+              type="button" 
+              id="btnToggleMosaicFloor" 
+              class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded transition cursor-pointer"
+            >
+              Pavimento Mosaico
+            </button>
+          </div>
+        </div>
+
+        <!-- Controle de Tamanho e Escala da Fonte -->
           <div class="bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-100 space-y-2">
             <div class="flex items-center justify-between">
               <label for="fontScaleSlider" class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
@@ -271,7 +355,7 @@
               type="text" 
               id="inputName" 
               value="" 
-              placeholder="Ex: João Triviano"
+              placeholder="Ex: Gabriel Campagnoli"
               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#272C7C] focus:bg-white transition"
             >
           </div>
@@ -289,13 +373,13 @@
               id="inputRole" 
               list="rolesList"
               value="" 
-              placeholder="Ex: Controlador de CCO"
+              placeholder="Ex: Controlador de CCO – Linhas 11/12/13"
               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#272C7C] focus:bg-white transition"
             >
             <datalist id="rolesList">
-              <option value="Controlador de CCO"></option>
-              <option value="Supervisor do CCO"></option>
-              <option value="Operador de Trem"></option>
+              <option value="Controlador de CCO – Linhas 11/12/13"></option>
+              <option value="Supervisor do CCO – Linhas 11/12/13"></option>
+              <option value="Operador de Trem – Linhas 11/12/13"></option>
               <option value="Agente de Atendimento e Segurança"></option>
               <option value="Técnico de Manutenção"></option>
               <option value="Engenheiro de Operações"></option>
@@ -304,13 +388,13 @@
 
             <!-- Badges de Preenchimento Rápido -->
             <div class="flex flex-wrap gap-1.5 mt-2">
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Controlador de CCO">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Controlador de CCO – Linhas 11/12/13">
                 Controlador CCO
               </button>
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Supervisor do CCO">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Supervisor do CCO – Linhas 11/12/13">
                 Supervisor CCO
               </button>
-              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Operador de Trem">
+              <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Operador de Trem – Linhas 11/12/13">
                 Operador de Trem
               </button>
               <button type="button" class="btn-role-badge text-[11px] bg-slate-100 hover:bg-[#272C7C] hover:text-white text-slate-600 px-2 py-0.5 rounded-md border border-slate-200 transition" data-role="Agente de Atendimento e Segurança">
@@ -338,7 +422,7 @@
               type="email" 
               id="inputEmail" 
               value="" 
-              placeholder="Ex: joao.triviano@triviatrens.com.br"
+              placeholder="Ex: gabriel.campagnoli@triviatrens.com.br"
               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#272C7C] focus:bg-white transition"
             >
             <p class="text-[10px] text-slate-400 mt-1">
@@ -363,7 +447,7 @@
                 id="inputPhone" 
                 value="" 
                 maxlength="15"
-                placeholder="(11) 91234-5678"
+                placeholder="(11) 93357-4463"
                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#272C7C] focus:bg-white transition"
               >
             </div>
@@ -470,7 +554,7 @@
           </div>
 
           <!-- Wrapper de Pré-visualização -->
-          <div class="overflow-x-auto p-4 bg-slate-200/50 rounded-xl border border-slate-200/80 flex justify-center items-center relative">
+          <div id="previewSurround" class="overflow-x-auto p-4 bg-slate-200/50 rounded-xl border border-slate-200/80 flex justify-center items-center relative transition-all duration-300">
             
             <div id="signaturePreviewBox" class="signature-canvas-wrapper bg-white rounded-sm shadow-xs select-none relative box-border overflow-hidden transition-all duration-200" style="width: 500px; height: 125px;">
               
@@ -565,6 +649,44 @@
     </div>
   </main>
 
+  <!-- Esquadro e Compasso Quase Invisível (Canto Inferior Direito) -->
+  <aside 
+    id="masonicHiddenWatermark"
+    class="fixed bottom-3 right-3 z-10 masonic-watermark cursor-pointer select-none group"
+    title="A∴R∴L∴S∴"
+  >
+    <div class="relative p-2 flex items-center justify-center">
+      <!-- SVG Vetorial do Esquadro e Compasso (1º Grau: hastes do compasso sob o esquadro) -->
+      <svg class="w-11 h-11 text-slate-800 group-hover:text-amber-500 drop-shadow-xs transition-colors duration-500" viewBox="0 0 100 100" fill="currentColor">
+        <!-- Compasso (Braços sob o esquadro no 1º Grau) -->
+        <g opacity="0.95">
+          <!-- Articulação superior do compasso -->
+          <circle cx="50" cy="18" r="6" fill="currentColor"/>
+          <circle cx="50" cy="18" r="2.5" fill="#ffffff"/>
+          <!-- Perna esquerda -->
+          <polygon points="48,22 52,22 24,88 20,87"/>
+          <!-- Perna direita -->
+          <polygon points="48,22 52,22 80,87 76,88"/>
+        </g>
+        <!-- Esquadro (Sobre as pontas do compasso) -->
+        <g>
+          <!-- Braço esquerdo do esquadro -->
+          <polygon points="50,68 18,36 24,30 50,56" fill="currentColor"/>
+          <!-- Braço direito do esquadro -->
+          <polygon points="50,68 82,36 76,30 50,56" fill="currentColor"/>
+          <!-- Vértice 90 graus central -->
+          <rect x="47" y="56" width="6" height="12" fill="currentColor" transform="rotate(45 50 62)"/>
+        </g>
+        <!-- Letra 'G' no centro -->
+        <text x="50" y="47" text-anchor="middle" dominant-baseline="central" font-family="'Times New Roman', serif" font-weight="bold" font-size="16" fill="currentColor">G</text>
+      </svg>
+      <!-- Tooltip sutil e discreto -->
+      <span class="absolute -top-7 right-0 text-[10px] font-mono tracking-wider font-semibold text-amber-900 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded shadow-sm opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none whitespace-nowrap">
+        T∴F∴A∴ ∴
+      </span>
+    </div>
+  </aside>
+
   <canvas id="exportCanvas" class="hidden"></canvas>
 
   <script>
@@ -654,6 +776,21 @@
     const dragLogoItem = document.getElementById('dragLogoItem');
     const dragTextItem = document.getElementById('dragTextItem');
     const resizeHandleLogo = document.getElementById('resizeHandleLogo');
+
+    // Elementos dos Easter Eggs do Grau 1 (Aprendiz)
+    const btnEasterEggBateria = document.getElementById('btnEasterEggBateria');
+    const headerLogoText = document.getElementById('headerLogoText');
+    const badgeGrau = document.getElementById('badgeGrau');
+    const masonicApprenticePanel = document.getElementById('masonicApprenticePanel');
+    const previewSurround = document.getElementById('previewSurround');
+    const btnInsertThreeDots = document.getElementById('btnInsertThreeDots');
+    const btnToggleMosaicFloor = document.getElementById('btnToggleMosaicFloor');
+    const masonicHiddenWatermark = document.getElementById('masonicHiddenWatermark');
+
+    let clickCountBateria = 0;
+    let clickBateriaTimer = null;
+    let masonicModeActive = false;
+    let keyBuffer = '';
 
     const mouseState = {
       logo: { ...RESOLUTION_PRESETS.medium.defaultLogo },
@@ -797,6 +934,88 @@
     }
 
     btnAutoAlign.addEventListener('click', autoAlignElements);
+
+    // ==========================================
+    // EASTER EGGS DO GRAU DE APRENDIZ (1º GRAU ∴)
+    // ==========================================
+
+    function ativarModoAprendiz() {
+      masonicModeActive = !masonicModeActive;
+      if (masonicModeActive) {
+        masonicApprenticePanel.classList.remove('hidden');
+        badgeGrau.classList.remove('hidden');
+        headerLogoText.innerHTML = '📐';
+        showNotification('À Glória do G∴A∴D∴U∴ — 1º Grau (Aprendiz Maçom) Revelado!');
+      } else {
+        masonicApprenticePanel.classList.add('hidden');
+        badgeGrau.classList.add('hidden');
+        previewSurround.classList.remove('pavimento-mosaico');
+        headerLogoText.textContent = 'T';
+        showNotification('A Loja retornou à discrição profana.');
+      }
+    }
+
+    // Easter Egg 1: A Bateria de 3 Pancadas do Aprendiz (Bateria OO O / 3 cliques)
+    btnEasterEggBateria.addEventListener('click', () => {
+      clickCountBateria++;
+      clearTimeout(clickBateriaTimer);
+
+      clickBateriaTimer = setTimeout(() => {
+        clickCountBateria = 0;
+      }, 1200);
+
+      if (clickCountBateria === 3) {
+        clickCountBateria = 0;
+        clearTimeout(clickBateriaTimer);
+        ativarModoAprendiz();
+      }
+    });
+
+    // Easter Egg 2: Pavimento Mosaico no fundo da mesa de trabalho
+    btnToggleMosaicFloor.addEventListener('click', () => {
+      previewSurround.classList.toggle('pavimento-mosaico');
+      const isMosaic = previewSurround.classList.contains('pavimento-mosaico');
+      showNotification(isMosaic ? 'Pavimento Mosaico estendido sob a assinatura.' : 'Fundo padrão restaurado.');
+    });
+
+    // Clique na marca d'água oculta ativa o modo Aprendiz e exibe instrução
+    masonicHiddenWatermark.addEventListener('click', () => {
+      ativarModoAprendiz();
+      console.log('%c[∴] "Batei e abrir-se-vos-á; buscai e achareis."', 'color: #f59e0b; font-weight: bold; font-style: italic;');
+    });
+
+    // Easter Egg 3: Inserir a abreviação dos três pontos ∴
+    btnInsertThreeDots.addEventListener('click', () => {
+      let val = inputName.value.trim();
+      if (!val) val = 'Irmão Aprendiz';
+      if (!val.includes('∴')) {
+        inputName.value = `${val} ∴`;
+      } else {
+        inputName.value = val.replace(/\s*∴/g, '');
+      }
+      updatePreviewText();
+      showNotification('Abreviatura sagrada dos três pontos (∴) aplicada.');
+    });
+
+    // Easter Egg 4: Reconhecimento por Teclado (Palavra Sagrada "BOAZ" ou "GADU")
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        // Se digitar "boaz" no campo nome ou cargo, sugere a citação
+        if (e.key.toLowerCase() === 'z' && document.activeElement.value.toLowerCase().endsWith('boa')) {
+          showNotification('Palavra Sagrada do 1º Grau reconhecida: Força na Coluna B.');
+        }
+        return;
+      }
+
+      keyBuffer += e.key.toLowerCase();
+      if (keyBuffer.length > 6) keyBuffer = keyBuffer.slice(-6);
+
+      // Digitar "gadu" ou "boaz" na tela fora dos inputs
+      if (keyBuffer.includes('gadu') || keyBuffer.includes('boaz')) {
+        keyBuffer = '';
+        ativarModoAprendiz();
+      }
+    });
 
     function makeDraggable(el, key) {
       el.addEventListener('pointerdown', (e) => {
@@ -1366,6 +1585,65 @@
       applyPreset('medium');
       updatePreviewText();
       loadLogoFromLink(inputLogoUrl.value.trim());
+
+      // ========================================================
+      // EASTER EGG NO CONSOLE: CÂMARA DE REFLEXÕES & GRAU 1 ∴
+      // ========================================================
+      setTimeout(() => {
+        const consoleAscii = `
+       .
+      / \\
+     /   \\
+    /  G  \\
+   /_______\\
+     /   \\
+    /     \\
+   '       '
+`;
+        console.log(
+          `%c${consoleAscii}`,
+          'color: #d97706; font-family: monospace; font-weight: bold; font-size: 13px; line-height: 1.1;'
+        );
+
+        console.log(
+          '%c A∴R∴L∴S∴ — À GLÓRIA DO GRANDE ARQUITETO DO UNIVERSO ∴ %c',
+          'background: #1e293b; color: #fbbf24; font-size: 11px; font-weight: bold; padding: 5px 10px; border-radius: 4px; border: 1px solid #d97706;',
+          ''
+        );
+
+        console.log(
+          '%c"Quem vem lá? Um Aprendiz Maçom que viajou do Ocidente para o Oriente em busca da Luz."%c\n' +
+          '• Três pancadas na porta (Bateria do 1º Grau): OO O\n' +
+          '• Palavra Sagrada da Coluna do Norte: "B***Z"\n' +
+          '• Comandos secretos disponíveis aqui no console:\n' +
+          '   👉 Digite %caprendiz()%c para revelar os mistérios do 1º Grau.\n' +
+          '   👉 Digite %cmosaico()%c para alternar o Pavimento Mosaico.\n' +
+          '   👉 Digite %cluz()%c para restaurar a discrição.',
+          'color: #334155; font-size: 11px; font-family: Georgia, serif; line-height: 1.6;',
+          '',
+          'color: #2563eb; font-weight: bold;', '',
+          'color: #2563eb; font-weight: bold;', '',
+          'color: #2563eb; font-weight: bold;', ''
+        );
+      }, 700);
+
+      // Comandos interativos invocáveis via Console do Navegador
+      window.aprendiz = function() {
+        if (!masonicModeActive) ativarModoAprendiz();
+        return '∴ Os trabalhos estão abertos em Força e Sabedoria. Idade: 3 anos.';
+      };
+
+      window.mosaico = function() {
+        previewSurround.classList.toggle('pavimento-mosaico');
+        return previewSurround.classList.contains('pavimento-mosaico')
+          ? '∴ Pavimento Mosaico estendido.'
+          : '∴ Fundo neutro restaurado.';
+      };
+
+      window.luz = function() {
+        if (masonicModeActive) ativarModoAprendiz();
+        return '∴ Discrição restabelecida.';
+      };
     });
   </script>
 </body>
