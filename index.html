@@ -1018,6 +1018,7 @@
     makeDraggable(dragTextItem, 'text');
 
     let currentLogoImage = new Image();
+    let logoLoadPromise = Promise.resolve();
 
     // Carregamento de logo exclusivamente por URL com conversão segura para Blob/Canvas
     async function loadLogoFromLink(url) {
@@ -1071,33 +1072,38 @@
         img.crossOrigin = 'anonymous';
       }
 
-      img.onload = () => {
-        currentLogoImage = img;
-        previewLogoImg.src = targetSrc;
-        logoStatusBadge.textContent = 'Logo Carregado do Link';
-        logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
+      const imageLoadPromise = new Promise((resolve) => {
+        img.onload = () => {
+          currentLogoImage = img;
+          previewLogoImg.src = targetSrc;
+          logoStatusBadge.textContent = 'Logo Carregado do Link';
+          logoStatusBadge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
 
-        if (img.naturalWidth && img.naturalHeight) {
-          const ratio = img.naturalWidth / img.naturalHeight;
-          mouseState.logo.height = mouseState.logo.width / ratio;
-          dragLogoItem.style.height = `${mouseState.logo.height}px`;
-        }
-        showNotification('Logo carregado com sucesso!');
-      };
+          if (img.naturalWidth && img.naturalHeight) {
+            const ratio = img.naturalWidth / img.naturalHeight;
+            mouseState.logo.height = mouseState.logo.width / ratio;
+            dragLogoItem.style.height = `${mouseState.logo.height}px`;
+          }
+          showNotification('Logo carregado com sucesso!');
+          resolve();
+        };
 
-      img.onerror = () => {
-        currentLogoImage = null;
-        previewLogoImg.src = url;
-        logoStatusBadge.textContent = 'Exibindo Imagem';
-        logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-        showNotification('Imagem carregada para visualização.');
-      };
+        img.onerror = () => {
+          currentLogoImage = null;
+          previewLogoImg.src = url;
+          logoStatusBadge.textContent = 'Exibindo Imagem';
+          logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
+          showNotification('Imagem carregada para visualização.');
+          resolve();
+        };
 
-      img.src = targetSrc;
+        img.src = targetSrc;
+      });
+      await imageLoadPromise;
     }
 
     btnLoadLogoFromUrl.addEventListener('click', () => {
-      loadLogoFromLink(inputLogoUrl.value.trim());
+      logoLoadPromise = loadLogoFromLink(inputLogoUrl.value.trim());
     });
 
     inputLogoUrl.addEventListener('keypress', (e) => {
@@ -1497,9 +1503,20 @@
       return canvas;
     }
 
+    async function isLogoReadyForExport() {
+      await logoLoadPromise;
+      return !inputLogoUrl.value.trim() || Boolean(
+        currentLogoImage && currentLogoImage.complete && currentLogoImage.naturalWidth > 0
+      );
+    }
+
     // Baixar PNG
-    btnDownloadPng.addEventListener('click', () => {
+    btnDownloadPng.addEventListener('click', async () => {
       try {
+        if (!(await isLogoReadyForExport())) {
+          showNotification('Não foi possível preparar o logo para exportação. Clique em Pegar Logo novamente.', false);
+          return;
+        }
         const canvas = generateCanvas();
         const link = document.createElement('a');
         const rawName = inputName.value.trim() || 'Assinatura';
@@ -1517,6 +1534,10 @@
     // Copiar Imagem para o Clipboard
     btnCopyImage.addEventListener('click', async () => {
       try {
+        if (!(await isLogoReadyForExport())) {
+          showNotification('Não foi possível preparar o logo para exportação. Clique em Pegar Logo novamente.', false);
+          return;
+        }
         const canvas = generateCanvas();
         canvas.toBlob(async (blob) => {
           if (!blob) {
@@ -1598,7 +1619,7 @@
     window.addEventListener('load', () => {
       applyPreset('medium');
       updatePreviewText();
-      loadLogoFromLink(inputLogoUrl.value.trim());
+      logoLoadPromise = loadLogoFromLink(inputLogoUrl.value.trim());
     });
   </script>
 </body>
