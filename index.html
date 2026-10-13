@@ -568,6 +568,8 @@
   <canvas id="exportCanvas" class="hidden"></canvas>
 
   <script>
+    console.info('A G D G A D U');
+
     // Presets de Resolução Proporcional (4:1)
     const RESOLUTION_PRESETS = {
       compact: {
@@ -909,6 +911,8 @@
 
       logoStatusBadge.textContent = 'Buscando logo...';
       logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
+      currentLogoImage = null;
+      previewLogoImg.src = url;
 
       let resolvedBlobUrl = null;
 
@@ -923,29 +927,7 @@
         console.warn('Fetch direto bloqueado por CORS. Tentando espelho/proxy...', e);
       }
 
-      // 2. Se for o logo da Trivia, consulta o espelho de Wikimedia
-      if (!resolvedBlobUrl && (url.includes('triviatrens.com.br') || url.includes('logo-trivia'))) {
-        try {
-          const wikiQuery = await fetch('https://commons.wikimedia.org/w/api.php?action=query&titles=File:Logo-trivia.svg&prop=imageinfo&iiprop=url&format=json&origin=*');
-          if (wikiQuery.ok) {
-            const data = await wikiQuery.json();
-            const pages = data?.query?.pages || {};
-            const firstKey = Object.keys(pages)[0];
-            const directUrl = pages[firstKey]?.imageinfo?.[0]?.url;
-            if (directUrl) {
-              const directFetch = await fetch(directUrl);
-              if (directFetch.ok) {
-                const blob = await directFetch.blob();
-                resolvedBlobUrl = URL.createObjectURL(blob);
-              }
-            }
-          }
-        } catch (err) {
-          console.warn('Tentativa via Wikimedia falhou:', err);
-        }
-      }
-
-      // 3. Fallback proxies públicos CORS
+      // Fallback proxies públicos CORS
       if (!resolvedBlobUrl) {
         const proxies = [
           (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
@@ -987,6 +969,7 @@
       };
 
       img.onerror = () => {
+        currentLogoImage = null;
         previewLogoImg.src = url;
         logoStatusBadge.textContent = 'Exibindo Imagem';
         logoStatusBadge.className = 'text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
